@@ -1,0 +1,22 @@
+name: Publish Docker image
+
+on:
+  # push:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  docker-image-build:
+    name: Publish Docker image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Install Nix
+      uses: cachix/install-nix-action@v18
+    - name: Check for changed files
+      id: files
+      uses: jitterbit/get-changed-files@v1
+    - name: Build Docker image
+      # if: contains(steps.files.outputs.all, 'flake.nix')
+      run: nix build -L .#dockerIntegrationTest

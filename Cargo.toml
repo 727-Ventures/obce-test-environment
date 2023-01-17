@@ -3,6 +3,8 @@ resolver = "2"
 members = [
     'node',
     'runtime',
+    'chain-extension',
+    'pallet'
 ]
 
 [profile.release]
