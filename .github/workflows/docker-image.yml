@@ -27,6 +27,6 @@ jobs:
       uses: jitterbit/get-changed-files@v1
     - name: Build Docker image
       # if: contains(steps.files.outputs.all, 'flake.nix')
-      run: nix build -L .#dockerIntegrationTest
+      run: nix --extra-experimental-features nix-command --extra-experimental-features flakes build -L .#dockerIntegrationTest
     - name: Load Docker image
       run: docker load < result
