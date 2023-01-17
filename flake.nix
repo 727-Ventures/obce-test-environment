@@ -64,11 +64,11 @@
         contractsNode = craneLib.buildPackage {
           src = ./.;
 
-          cargoArtifacts = null;
-
           buildInputs = [
             pkgs.protobuf
           ];
+
+          doCheck = false;
         };
       in {
         devShells.default = pkgs.mkShell {
