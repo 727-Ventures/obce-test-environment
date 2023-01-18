@@ -12,23 +12,31 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    - name: Install Nix with cache
-      uses: mtoohey31/cache-flake-attrs@v2
+    - name: Install Nix
+      uses: cachix/install-nix-action@v18
+    - id: restore-nix-store
+      name: Restore cached Nix store
+      uses: actions/cache/restore@v3
       with:
-        key: ${{ runner.os }}-nix-${{ hashFiles('./flake.lock', './flake.nix') }}
+        path: /nix/store
+        key: ${{ runner.os }}-nix-store
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Check for changed files
-      id: files
-      uses: jitterbit/get-changed-files@v1
     - name: Build Docker image
-      # if: contains(steps.files.outputs.all, 'flake.nix')
       run: nix --extra-experimental-features nix-command --extra-experimental-features flakes build -L .#dockerIntegrationTest
+    - id: save-nix-store
+      name: Cache Nix store
+      uses: actions/cache/save@v3
+      with:
+        path: /nix/store
+        key: ${{ steps.restore-nix-store.outputs.cache-primary-key }}
     - name: Load Docker image
       run: docker load < result
+    - name: Tag Docker image
+      run: docker tag obce-docker-image:latest ghcr.io/727-ventures/obce-docker-image:latest
     - name: Push Docker image
       run: docker push ghcr.io/727-ventures/obce-docker-image:latest
