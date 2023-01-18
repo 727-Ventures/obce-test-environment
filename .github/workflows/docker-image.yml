@@ -31,4 +31,4 @@ jobs:
     - name: Load Docker image
       run: docker load < result
     - name: Push Docker image
-      run: docker push obce-docker-image
+      run: docker push ghcr.io/727-Ventures/obce-docker-image:latest
