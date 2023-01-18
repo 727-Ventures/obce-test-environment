@@ -27,7 +27,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build Docker image
-      run: nix --extra-experimental-features nix-command --extra-experimental-features flakes build -L .#dockerIntegrationTest
+      run: nix build -L .#dockerIntegrationTest
     - id: save-nix-store
       name: Cache Nix store
       uses: actions/cache/save@v3

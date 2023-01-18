@@ -83,14 +83,8 @@
             name = "obce-docker-image";
             tag = "latest";
 
-            copyToRoot = pkgs.buildEnv {
-              name = "image-root";
-              paths = [contractsNode pkgs.bash pkgs.nodejs pkgs.yarn pkgs.python311];
-              pathsToLink = ["/bin"];
-            };
-
             config = {
-              Cmd = ["/bin/substrate-contracts-node" "--dev" "--tmp"];
+              Cmd = ["${contractsNode}/bin/substrate-contracts-node" "--dev" "--tmp"];
             };
           };
         };
