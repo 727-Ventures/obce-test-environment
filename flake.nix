@@ -84,7 +84,14 @@
             tag = "latest";
 
             config = {
-              Cmd = ["${contractsNode}/bin/substrate-contracts-node" "--dev" "--tmp"];
+              Cmd = [
+                "${contractsNode}/bin/substrate-contracts-node"
+                "--dev"
+                "--tmp"
+                "--no-prometheus"
+                "--rpc-external"
+                "--ws-external"
+              ];
             };
           };
         };
