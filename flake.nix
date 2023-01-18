@@ -62,7 +62,7 @@
           rustToolchain;
 
         contractsNode = craneLib.buildPackage {
-          src = ./.;
+          src = craneLib.cleanCargoSource ./.;
 
           buildInputs = [
             pkgs.protobuf
@@ -81,8 +81,16 @@
         packages = {
           dockerIntegrationTest = pkgs.dockerTools.buildImage {
             name = "obce-docker-image";
+            tag = "latest";
+
+            copyToRoot = pkgs.buildEnv {
+              name = "image-root";
+              paths = [contractsNode pkgs.bash pkgs.nodejs pkgs.yarn pkgs.python311];
+              pathsToLink = ["/bin"];
+            };
+
             config = {
-              Cmd = ["${contractsNode}/bin/substrate-contracts-node" "--dev" "--tmp"];
+              Cmd = ["/bin/substrate-contracts-node" "--dev" "--tmp"];
             };
           };
         };
