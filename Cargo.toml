@@ -4,7 +4,7 @@ members = [
     'node',
     'runtime',
     'chain-extension',
-    'pallet'
+    'pallet-example'
 ]
 
 [profile.release]

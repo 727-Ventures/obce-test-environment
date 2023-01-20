@@ -306,7 +306,7 @@ impl pallet_assets::Config for Runtime {
 	type RemoveItemsLimit = ConstU32<1000>;
 }
 
-impl pallet::Config for Runtime {
+impl pallet_example::Config for Runtime {
 	type WeightInfo = ();
 }
 
@@ -379,6 +379,7 @@ construct_runtime!(
 		Sudo: pallet_sudo,
 		Contracts: pallet_contracts,
 		Assets: pallet_assets,
+		Example: pallet_example,
 	}
 );
 

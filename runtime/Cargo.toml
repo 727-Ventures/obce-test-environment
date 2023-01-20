@@ -50,7 +50,7 @@ pallet-assets-chain-extension = { git = "https://github.com/727-Ventures/pallet-
 
 # OBCE test environment stuff
 chain-extension = { path = "../chain-extension", default-features = false, features = ["substrate"] }
-pallet = { path = "../pallet", default-features = false }
+pallet-example = { path = "../pallet-example", default-features = false }
 
 [build-dependencies]
 substrate-wasm-builder =  { git = "https://github.com/paritytech/substrate", package = "substrate-wasm-builder", branch = "polkadot-v0.9.34" }
@@ -87,6 +87,6 @@ std = [
 	"pallet-contracts-primitives/std",
 	"pallet-assets/std",
 	"pallet-assets-chain-extension/substrate-std",
-	"chain-extension/std",
-	"pallet/std"
+	"chain-extension/substrate-std",
+	"pallet-example/std"
 ]
