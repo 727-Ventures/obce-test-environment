@@ -6,7 +6,7 @@ version = "0.1.0"
 [dependencies]
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
 scale-info = { version = "2", default-features = false, features = ["derive"] }
-obce = { git = "https://github.com/727-Ventures/obce", default-features = false }
+obce = { path = "../../", default-features = false }
 
 # Substrate deps
 pallet-example = { path = "../pallet-example", default-features = false, optional = true }
