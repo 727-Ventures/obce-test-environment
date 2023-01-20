@@ -1,0 +1,51 @@
+[package]
+name = "chain-extension"
+edition = "2021"
+version = "0.1.0"
+
+[dependencies]
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
+scale-info = { version = "2", default-features = false, features = ["derive"] }
+obce = { path = "../../", default-features = false }
+
+# Substrate deps
+pallet-example = { path = "../pallet-example", default-features = false, optional = true }
+
+# Ink deps
+ink = { git = "https://github.com/paritytech/ink", rev = "4655a8b4413cb50cbc38d1b7c173ad426ab06cde", default-features = false, optional = true }
+ink_primitives = { git = "https://github.com/paritytech/ink", rev = "4655a8b4413cb50cbc38d1b7c173ad426ab06cde", default-features = false, optional = true }
+ink_metadata = { git = "https://github.com/paritytech/ink", rev = "4655a8b4413cb50cbc38d1b7c173ad426ab06cde", default-features = false, features = ["derive"], optional = true }
+ink_storage = { git = "https://github.com/paritytech/ink", rev = "4655a8b4413cb50cbc38d1b7c173ad426ab06cde", default-features = false, optional = true }
+
+[features]
+default = ["std"]
+substrate = [
+	"obce/substrate",
+	"pallet-example",
+]
+ink = [
+	"obce/ink",
+	"dep:ink",
+	"ink_primitives",
+	"ink_storage",
+]
+std = [
+	"scale-info/std",
+	"scale/std",
+	"obce/std"
+]
+substrate-std = [
+	"std",
+	"substrate",
+	"obce/substrate-std",
+	"pallet-example/std",
+]
+ink-std = [
+	"std",
+	"ink",
+	"obce/ink-std",
+	"ink_primitives/std",
+	"ink_storage/std",
+	"ink_metadata",
+	"ink_metadata/std",
+]
