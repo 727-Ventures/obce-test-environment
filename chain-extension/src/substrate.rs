@@ -1,7 +1,6 @@
 use obce::substrate::{
 	frame_system::{Config as SysConfig, RawOrigin},
 	pallet_contracts::{chain_extension::Ext, Config as ContractConfig},
-	sp_core::crypto::UncheckedFrom,
 	sp_runtime::traits::StaticLookup,
 	ExtensionContext,
 };
@@ -18,7 +17,6 @@ where
 	T: SysConfig + ContractConfig + pallet_example::Config,
 	<<T as SysConfig>::Lookup as StaticLookup>::Source: From<<T as SysConfig>::AccountId>,
 	E: Ext<T = T>,
-	<E::T as SysConfig>::AccountId: UncheckedFrom<<E::T as SysConfig>::Hash> + AsRef<[u8]>,
 {
 	#[obce(weight(dispatch = "pallet_example::Pallet::<T>::successful_method"))]
 	fn successful_method(&mut self) -> Result<(), Error<T>> {
