@@ -12,10 +12,10 @@ obce = { path = "../../", default-features = false }
 pallet-example = { path = "../pallet-example", default-features = false, optional = true }
 
 # Ink deps
-ink = { version = "4.0.0-beta.1", default-features = false, optional = true }
-ink_primitives = { version = "4.0.0-beta.1", default-features = false, optional = true }
-ink_metadata = { version = "4.0.0-beta.1", default-features = false, features = ["derive"], optional = true }
-ink_storage = { version = "4.0.0-beta.1", default-features = false, optional = true }
+ink = { version = "4.0.0-rc", default-features = false, optional = true }
+ink_primitives = { version = "4.0.0-rc", default-features = false, optional = true }
+ink_metadata = { version = "4.0.0-rc", default-features = false, features = ["derive"], optional = true }
+ink_storage = { version = "4.0.0-rc", default-features = false, optional = true }
 
 [features]
 default = ["std"]
