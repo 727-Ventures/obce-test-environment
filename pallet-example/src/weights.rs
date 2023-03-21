@@ -6,6 +6,6 @@ pub trait WeightInfo {
 
 impl<I> WeightInfo for I {
 	fn const_ref_time(val: u64) -> Weight {
-		Weight::from_ref_time(val)
+		Weight::from_parts(val, 0)
 	}
 }

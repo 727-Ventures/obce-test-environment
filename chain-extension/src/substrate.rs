@@ -2,6 +2,7 @@ use obce::substrate::{
 	frame_system::{Config as SysConfig, RawOrigin},
 	pallet_contracts::{chain_extension::Ext, Config as ContractConfig},
 	sp_runtime::traits::StaticLookup,
+	ChainExtensionEnvironment,
 	ExtensionContext,
 };
 use pallet_example::{self, Pallet};
@@ -12,11 +13,12 @@ use crate::{ChainExtension, Error};
 pub struct Extension {}
 
 #[obce::implementation]
-impl<'a, 'b, E, T> ChainExtension<T> for ExtensionContext<'a, 'b, E, T, Extension>
+impl<'a, E, T, Env> ChainExtension<T> for ExtensionContext<'a, E, T, Env, Extension>
 where
 	T: SysConfig + ContractConfig + pallet_example::Config,
 	<<T as SysConfig>::Lookup as StaticLookup>::Source: From<<T as SysConfig>::AccountId>,
 	E: Ext<T = T>,
+	Env: ChainExtensionEnvironment<E, T>,
 {
 	#[obce(weight(dispatch = "pallet_example::Pallet::<T>::successful_method"))]
 	fn successful_method(&mut self) -> Result<(), Error<T>> {

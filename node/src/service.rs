@@ -135,7 +135,7 @@ pub fn new_full(config: Configuration) -> Result<TaskManager, ServiceError> {
 		};
 	}
 
-	let (network, system_rpc_tx, tx_handler_controller, network_starter) =
+	let (network, system_rpc_tx, tx_handler_controller, network_starter, sync_service) =
 		sc_service::build_network(sc_service::BuildNetworkParams {
 			config: &config,
 			client: client.clone(),
@@ -143,7 +143,7 @@ pub fn new_full(config: Configuration) -> Result<TaskManager, ServiceError> {
 			spawn_handle: task_manager.spawn_handle(),
 			import_queue,
 			block_announce_validator_builder: None,
-			warp_sync: None,
+			warp_sync_params: None
 		})?;
 
 	if config.offchain_worker.enabled {
@@ -179,6 +179,7 @@ pub fn new_full(config: Configuration) -> Result<TaskManager, ServiceError> {
 		tx_handler_controller,
 		config,
 		telemetry: telemetry.as_mut(),
+		sync_service: sync_service.clone(),
 	})?;
 
 	let proposer = sc_basic_authorship::ProposerFactory::new(
